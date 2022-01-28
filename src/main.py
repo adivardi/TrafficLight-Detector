@@ -16,10 +16,10 @@ def detect(filepath, file):
     cimg = img
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    # color range
-    lower_red1 = np.array([0,100,100])
+    # colors range
+    lower_red1 = np.array([0, 0, 0])
     upper_red1 = np.array([10,255,255])
-    lower_red2 = np.array([160,100,100])
+    lower_red2 = np.array([160, 0, 0])
     upper_red2 = np.array([180,255,255])
     lower_green = np.array([40,50,50])
     upper_green = np.array([90,255,255])
