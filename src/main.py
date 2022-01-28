@@ -65,13 +65,13 @@ def detect(filepath, file):
     # For example, GaussianBlur() with 7x7 kernel and 1.5x1.5 sigma or similar blurring may help
 
     r_circles = cv2.HoughCircles(image=maskr, method=cv2.HOUGH_GRADIENT, dp=1, minDist=80,
-                               param1=50, param2=10, minRadius=0, maxRadius=30)
-
-    g_circles = cv2.HoughCircles(image=maskg, method=cv2.HOUGH_GRADIENT, dp=1, minDist=60,
                                  param1=50, param2=10, minRadius=0, maxRadius=30)
 
-    y_circles = cv2.HoughCircles(image=masky, method=cv2.HOUGH_GRADIENT, dp=1, minDist=30,
-                                 param1=50, param2=5, minRadius=0, maxRadius=30)
+    g_circles = cv2.HoughCircles(image=maskg, method=cv2.HOUGH_GRADIENT, dp=1, minDist=80,
+                                 param1=50, param2=10, minRadius=0, maxRadius=30)
+
+    y_circles = cv2.HoughCircles(image=masky, method=cv2.HOUGH_GRADIENT, dp=1, minDist=80,
+                                 param1=50, param2=10, minRadius=0, maxRadius=30)
 
     # traffic light detect
     r = 5
@@ -97,7 +97,7 @@ def detect(filepath, file):
             # if ratio red/total is high, keep
             if h / s > 50:
                 cv2.circle(cimg, (i[0], i[1]), i[2], (0, 255, 0), 2)
-                cv2.circle(maskr, (i[0], i[1]), i[2]+30, (255, 255, 255), 2)
+                cv2.circle(maskr, (i[0], i[1]), i[2]*2, (255, 255, 255), 2)
                 cv2.putText(cimg,'RED',(i[0], i[1]), font, 1,(255,0,0),2,cv2.LINE_AA)
 
     if g_circles is not None:
@@ -117,7 +117,7 @@ def detect(filepath, file):
                     s += 1
             if h / s > 100:
                 cv2.circle(cimg, (i[0], i[1]), i[2], (0, 255, 0), 2)
-                cv2.circle(maskg, (i[0], i[1]), i[2]+30, (255, 255, 255), 2)
+                cv2.circle(maskg, (i[0], i[1]), i[2]*2, (255, 255, 255), 2)
                 cv2.putText(cimg,'GREEN',(i[0], i[1]), font, 1,(255,0,0),2,cv2.LINE_AA)
 
     if y_circles is not None:
@@ -137,13 +137,13 @@ def detect(filepath, file):
                     s += 1
             if h / s > 50:
                 cv2.circle(cimg, (i[0], i[1]), i[2], (0, 255, 0), 2)
-                cv2.circle(masky, (i[0], i[1]), i[2]+30, (255, 255, 255), 2)
+                cv2.circle(masky, (i[0], i[1]), i[2]*2, (255, 255, 255), 2)
                 cv2.putText(cimg,'YELLOW',(i[0], i[1]), font, 1,(255,0,0),2,cv2.LINE_AA)
 
     cv2.imshow('img', img)
     # cv2.imshow('hsv', hsv)
     cv2.imshow('maskr', maskr)
-    # cv2.imshow('maskg', maskg)
+    cv2.imshow('maskg', maskg)
     # cv2.imshow('masky', masky)
 
     cv2.imshow('detected results', cimg)
