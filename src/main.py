@@ -64,6 +64,10 @@ def detect(filepath, file):
     # computed, and this typically results in ‘noisy’ edges
     # For example, GaussianBlur() with 7x7 kernel and 1.5x1.5 sigma or similar blurring may help
 
+    maskr = cv2.GaussianBlur(maskr, (5, 5), 1)
+    maskg = cv2.GaussianBlur(maskg, (5, 5), 1)
+    masky = cv2.GaussianBlur(masky, (5, 5), 1)
+
     r_circles = cv2.HoughCircles(image=maskr, method=cv2.HOUGH_GRADIENT, dp=1, minDist=80,
                                  param1=50, param2=10, minRadius=0, maxRadius=30)
 
